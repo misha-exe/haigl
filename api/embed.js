@@ -58,8 +58,8 @@ module.exports = async (req, res) => {
 </html>`;
 
     res.setHeader('Content-Type', 'text/html; charset=utf-8');
-    res.setHeader('X-Frame-Options', 'ALLOW-FROM https://twitter.com https://x.com https://t.co');
-    res.setHeader('Content-Security-Policy', "frame-ancestors 'self' https://twitter.com https://x.com https://t.co;");
+    //res.setHeader('X-Frame-Options', 'ALLOW-FROM https://twitter.com https://x.com https://t.co');
+    //res.setHeader('Content-Security-Policy', "frame-ancestors 'self' https://twitter.com https://x.com https://t.co;");
     res.status(200).send(html);
 
   } catch (error) {
