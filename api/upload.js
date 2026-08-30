@@ -87,12 +87,20 @@ module.exports = async (req, res) => {
     const videoUrl = uploadResult.secure_url;
     const publicId = uploadResult.public_id;
 
+    // Generate thumbnail with BURNED IN text to mimic native Twitter UI
     const thumbnailUrl = cloudinary.url(publicId, {
       resource_type: 'video',
-      width: 1200,
-      height: 628,
-      crop: 'fill',
-      gravity: 'auto',
+      secure: true,
+      transformation: [
+        { width: 1200, height: 628, crop: 'fill', gravity: 'auto' }, // Base image
+        // Add a dark gradient at the bottom for readability
+        { effect: "gradient_fade:y_1.0,b_black", height: 200, y: "bottom", crop: "crop" },
+        // Add "Watch full video 👇" text overlay
+        { 
+          overlay: { font_family: "Arial", font_size: 35, font_weight: "bold", text: "Watch full video %F0%9F%91%87" },
+          color: "white", gravity: "south_west", x: 40, y: 40 
+        }
+      ],
       format: 'jpg',
       quality: 'auto:good'
     });
