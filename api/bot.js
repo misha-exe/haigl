@@ -68,10 +68,10 @@ module.exports = async (req, res) => {
   
   <!-- Twitter Player Card -->
   <meta name="twitter:card" content="player">
-  <meta name="twitter:site" content="@kenzbrandt">
-  <meta name="twitter:creator" content="@kenzbrandt">
+  <!--<meta name="twitter:site" content="@kenzbrandt">
+  <meta name="twitter:creator" content="@kenzbrandt">-->
   <meta name="twitter:title" content="${escapeHtml(cardTitle)}">
-  <meta name="twitter:description" content="${escapeHtml(cardDesc)}">
+  <meta name="twitter:description" content="&#8203;">
   <meta name="twitter:image" content="${posterImage}">
   <meta name="twitter:image:alt" content="${escapeHtml(cardTitle)}">
   <meta name="twitter:image:width" content="1200">
