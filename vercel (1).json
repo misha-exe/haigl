@@ -1,0 +1,44 @@
+{
+  "rewrites": [
+    {
+      "source": "/v/:shortId",
+      "destination": "/api/bot"
+    },
+    {
+      "source": "/embed/:shortId",
+      "destination": "/api/embed"
+    },
+    {
+      "source": "/api/links",
+      "destination": "/api/links"
+    },
+    {
+      "source": "/api/debug",
+      "destination": "/api/debug"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/api/embed/(.*)",
+      "headers": [
+        {
+          "key": "X-Frame-Options",
+          "value": "ALLOW-FROM https://twitter.com https://x.com https://t.co"
+        },
+        {
+          "key": "Content-Security-Policy",
+          "value": "frame-ancestors 'self' https://twitter.com https://x.com https://t.co;"
+        }
+      ]
+    },
+    {
+      "source": "/v/(.*)",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "text/html; charset=utf-8"
+        }
+      ]
+    }
+  ]
+}
