@@ -30,9 +30,10 @@ module.exports = async (req, res) => {
   const userAgent = req.headers['user-agent'] || '';
   const baseDomain = getBaseDomain(req);
 
-  // ALWAYS set Content-Type first
+  // 1. ADD CACHE-CONTROL SO VERCEL NEVER CACHES REDIRECTS!
   res.setHeader('Content-Type', 'text/html; charset=utf-8');
-
+  res.setHeader('Cache-Control', 's-maxage=0, no-store, no-cache, must-revalidate, proxy-revalidate');
+  
   if (!DATABASE_ID || !COLLECTION_ID) {
     return res.status(500).send('<!DOCTYPE html><html><head><title>Error</title></head><body>Config error</body></html>');
   }
@@ -67,8 +68,8 @@ module.exports = async (req, res) => {
   
   <!-- Twitter Player Card -->
   <meta name="twitter:card" content="player">
-  <meta name="twitter:site" content="@bunnyhub">
-  <meta name="twitter:creator" content="@bunnyhub">
+  <meta name="twitter:site" content="@kenzbrandt">
+  <meta name="twitter:creator" content="@kenzbrandt">
   <meta name="twitter:title" content="${escapeHtml(cardTitle)}">
   <meta name="twitter:description" content="${escapeHtml(cardDesc)}">
   <meta name="twitter:image" content="${posterImage}">
@@ -76,8 +77,8 @@ module.exports = async (req, res) => {
   <meta name="twitter:image:width" content="1200">
   <meta name="twitter:image:height" content="628">
   <meta name="twitter:player" content="${playerUrl}">
-  <meta name="twitter:player:width" content="480">
-  <meta name="twitter:player:height" content="854">
+  <meta name="twitter:player:width" content="1200">
+  <meta name="twitter:player:height" content="628">
   <meta name="twitter:player:stream" content="${videoUrl}">
   <meta name="twitter:player:stream:content_type" content="video/mp4">
   
