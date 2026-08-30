@@ -1,0 +1,15 @@
+{
+  "name": "bunnyhub",
+  "version": "1.0.0",
+  "description": "Bunnyhub - Rich media previews for every platform",
+  "scripts": {
+    "dev": "vercel dev",
+    "deploy": "vercel --prod"
+  },
+  "dependencies": {
+    "appwrite": "^16.0.0",
+    "node-appwrite": "^14.0.0",
+    "cloudinary": "^2.5.0"
+  },
+  "devDependencies": {}
+}

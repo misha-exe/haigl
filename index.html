@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bunnyhub | Home</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/appwrite@16.0.0/dist/iife/sdk.min.js"></script>
+  <style>
+    .font-script { font-family: 'Pacifico', cursive; }
+    .font-body { font-family: 'Inter', sans-serif; }
+    .fade-in { animation: fadeIn 0.3s ease-out; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+    .slide-up { animation: slideUp 0.4s ease-out; }
+    @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    .hidden-view { display: none !important; }
+    .glass { background: rgba(255,255,255,0.9); backdrop-filter: blur(12px); }
+    .hero-glow {
+      background: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(120, 119, 198, 0.3), transparent);
+    }
+    .spinner {
+      border: 2px solid rgba(0,0,0,0.1);
+      border-left-color: #000;
+      border-radius: 50%;
+      width: 16px; height: 16px;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+  </style>
+<base target="_blank">
+</head>
+<body class="bg-gray-50 font-body text-gray-900 min-h-screen">
+
+  <!-- ========== INDEX / LANDING VIEW ========== -->
+  <section id="view-index" class="min-h-screen flex flex-col">
+    <nav class="glass sticky top-0 z-50 border-b border-gray-200/60">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+        <h1 class="font-script text-2xl text-purple-900">Bunnyhub</h1>
+        <div class="flex items-center">
+          <button onclick="showView('view-auth')" class="px-4 py-2 bg-white text-gray-700 font-medium rounded-xl border border-gray-200 hover:border-gray-300 hover:bg-gray-50 transition text-sm">
+            Sign in
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <div class="hero-glow flex-1">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 pt-20 pb-24 text-center">
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-gray-900 max-w-4xl mx-auto leading-tight mb-6 slide-up">
+          Rich previews on <span class="text-purple-700">every platform</span>
+        </h1>
+        <p class="text-lg sm:text-xl text-gray-500 max-w-2xl mx-auto mb-6 slide-up" style="animation-delay:0.1s">
+          Shareable media that looks native. Upload an image or video, get a short link. When someone pastes it in Twitter, Discord, Telegram, WhatsApp or Facebook, they see a beautifully rendered preview.
+        </p>
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 slide-up" style="animation-delay:0.2s">
+          <button onclick="showView('view-auth')" class="px-8 py-3.5 bg-black text-white font-medium rounded-xl hover:bg-gray-800 transition text-sm">
+            Get started
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white border-t border-gray-100">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 py-20">
+        <div class="text-center mb-16">
+          <h2 class="text-3xl font-bold text-gray-900 mb-4">Everything you need for beautiful links</h2>
+          <p class="text-gray-500 max-w-xl mx-auto">Fast global delivery. Native-looking previews. Simple upload workflow.</p>
+        </div>
+        <div class="grid md:grid-cols-3 gap-8">
+          <div class="p-6 rounded-2xl border border-gray-100 hover:border-purple-200 hover:shadow-lg hover:shadow-purple-900/5 transition bg-gray-50/50">
+            <div class="w-10 h-10 rounded-xl bg-purple-100 flex items-center justify-center mb-4">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7c3aed" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+            </div>
+            <h3 class="font-semibold text-gray-900 mb-2">Images</h3>
+            <p class="text-sm text-gray-500">JPG, PNG, GIF, WEBP — all supported with instant preview generation.</p>
+          </div>
+          <div class="p-6 rounded-2xl border border-gray-100 hover:border-purple-200 hover:shadow-lg hover:shadow-purple-900/5 transition bg-gray-50/50">
+            <div class="w-10 h-10 rounded-xl bg-purple-100 flex items-center justify-center mb-4">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7c3aed" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"></polygon><rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect></svg>
+            </div>
+            <h3 class="font-semibold text-gray-900 mb-2">Videos</h3>
+            <p class="text-sm text-gray-500">MP4, WEBM, MOV up to 200MB. Playable cards on every social platform.</p>
+          </div>
+          <div class="p-6 rounded-2xl border border-gray-100 hover:border-purple-200 hover:shadow-lg hover:shadow-purple-900/5 transition bg-gray-50/50">
+            <div class="w-10 h-10 rounded-xl bg-purple-100 flex items-center justify-center mb-4">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7c3aed" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg>
+            </div>
+            <h3 class="font-semibold text-gray-900 mb-2">Fast global delivery</h3>
+            <p class="text-sm text-gray-500">Your media is served from edge locations worldwide for instant loading.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="bg-white border-t border-gray-100">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+        <p class="text-sm text-gray-400">© 2026 Bunnyhub. All rights reserved.</p>
+        <div class="flex items-center gap-4">
+          <a href="#" class="text-sm text-gray-400 hover:text-gray-600 transition">Privacy</a>
+          <a href="#" class="text-sm text-gray-400 hover:text-gray-600 transition">Terms</a>
+        </div>
+      </div>
+    </footer>
+  </section>
+
+  <!-- ========== AUTH VIEW ========== -->
+  <section id="view-auth" class="hidden-view min-h-screen flex items-center justify-center p-4">
+    <div class="w-full max-w-md">
+      <div class="text-center mb-8 slide-up">
+        <button onclick="showView('view-index')" class="font-script text-5xl text-purple-900 mb-2 hover:opacity-80 transition">Bunnyhub</button>
+      </div>
+      <div class="bg-white rounded-2xl shadow-xl p-8 slide-up" style="animation-delay:0.1s">
+        <h2 class="text-xl font-semibold -mb-2 text-center">Welcome back</h2>
+        <div class="text-center mb-8 slide-up">
+          <p class="text-gray-500 mt-5 text-sm">Sign in to manage your previews</p>
+        </div>
+        <div class="space-y-4">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+            <input id="auth-email" type="email" placeholder="john.doe@mail.com" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 outline-none transition">
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+            <input id="auth-password" type="password" placeholder="••••••••••••••" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 outline-none transition">
+          </div>
+          <button onclick="signIn()" class="w-full bg-black text-white font-medium py-3 rounded-xl hover:bg-gray-800 transition">Sign In</button>
+        </div>
+        <div class="mt-6 text-center">
+          <button onclick="showView('view-index')" class="text-sm text-gray-400 hover:text-gray-600 transition">← Back to home</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== MAIN APP VIEW ========== -->
+  <section id="view-app" class="hidden-view min-h-screen">
+    <header class="glass sticky top-0 z-50 border-b border-gray-200/60">
+      <div class="max-w-2xl mx-auto px-4 h-16 flex items-center justify-between">
+        <button onclick="showView('view-index')" class="font-script text-2xl text-purple-900 hover:opacity-80 transition">Bunnyhub</button>
+        <div class="flex items-center gap-3">
+          <div class="flex items-center gap-2">
+            <span id="user-name" class="text-sm font-medium">Olivia ✨</span>
+            <img src="assets/images/1000442152.png" alt="Profile" class="w-9 h-9 rounded-full object-cover bg-purple-100">
+          </div>
+          <button onclick="logout()" class="text-xs text-gray-400 hover:text-red-500 transition">Logout</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="max-w-2xl mx-auto px-4 py-6">
+      <div id="create-post-card" class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden fade-in">
+        <!-- User Info -->
+        <div class="p-4 flex items-center gap-3 border-b border-gray-50">
+          <img src="assets/images/1000442152.png" alt="Profile" class="w-10 h-10 rounded-full object-cover bg-purple-100">
+          <div>
+            <p class="font-semibold text-sm">Olivia ✨ <span class="text-gray-400 font-normal">@oliviastormxx</span></p>
+          </div>
+        </div>
+
+        <!-- Text Input -->
+        <div class="p-4">
+          <textarea id="post-text" placeholder="What's happening?" 
+            oninput="updatePreviewText()"
+            onpaste="handlePaste(event)"
+            class="w-full text-lg resize-none outline-none placeholder-gray-400 px-4 py-3 rounded-xl border border-gray-200 focus:border-purple-500 focus:ring-2 focus:ring-purple-100 transition" 
+            rows="2"></textarea>
+        </div>
+
+        <!-- Destination -->
+        <div class="px-4 pb-2">
+          <p class="text-sm font-semibold text-gray-700 mb-2">Destination</p>
+          <div class="grid grid-cols-2 gap-3">
+            <button onclick="selectDestination('website')" id="dest-website" class="dest-btn relative p-4 rounded-xl border-2 border-black bg-gray-50 text-left transition">
+              <p class="font-semibold text-sm">Website</p>
+              <p class="text-xs text-gray-500 mt-0.5">Include a call to action to your website.</p>
+              <div class="absolute top-3 right-3 w-5 h-5 bg-black rounded-full flex items-center justify-center">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+              </div>
+            </button>
+            <button onclick="selectDestination('app')" id="dest-app" class="dest-btn relative p-4 rounded-xl border border-gray-200 text-left hover:border-gray-300 transition">
+              <p class="font-semibold text-sm">App</p>
+              <p class="text-xs text-gray-500 mt-0.5">Include a call to action to your app.</p>
+            </button>
+          </div>
+        </div>
+
+        <!-- Creative Type -->
+        <div class="px-4 py-3">
+          <p class="text-sm font-semibold text-gray-700 mb-2">Creative type</p>
+          <div class="relative">
+            <select id="creative-type" class="w-full appearance-none px-4 py-3 rounded-xl border border-gray-200 bg-white text-sm outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-100">
+              <option>Media</option>
+              <option>Text only</option>
+              <option>Poll</option>
+            </select>
+            <i data-lucide="chevron-down" class="w-4 h-4 absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none"></i>
+          </div>
+        </div>
+
+        <!-- Media Selection -->
+        <div class="px-4 pb-2">
+          <p class="text-sm font-semibold text-gray-700 mb-2">Media</p>
+          <div class="grid grid-cols-2 gap-3">
+            <button onclick="selectMediaType('single')" id="media-single" class="media-btn relative p-4 rounded-xl border-2 border-black bg-gray-50 text-left transition">
+              <p class="font-semibold text-sm">Single media</p>
+              <p class="text-xs text-gray-500 mt-0.5">1 photo or video</p>
+              <div class="absolute top-3 right-3 w-5 h-5 bg-black rounded-full flex items-center justify-center">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+              </div>
+            </button>
+            <button onclick="selectMediaType('carousel')" id="media-carousel" class="media-btn relative p-4 rounded-xl border border-gray-200 text-left hover:border-gray-300 transition">
+              <p class="font-semibold text-sm">Carousel</p>
+              <p class="text-xs text-gray-500 mt-0.5">2-10 photos or videos</p>
+            </button>
+          </div>
+        </div>
+
+        <!-- Upload Area -->
+        <div class="px-4 py-2">
+          <div id="upload-area" class="border-2 border-dashed border-gray-200 rounded-xl p-8 text-center hover:border-purple-300 transition cursor-pointer" onclick="document.getElementById('video-input').click()">
+            <input type="file" id="video-input" accept="video/*" class="hidden" onchange="handleVideoUpload(event)">
+            <i data-lucide="upload-cloud" class="w-8 h-8 text-gray-400 mx-auto mb-2"></i>
+            <p class="text-sm text-gray-500 font-medium">Click to upload video</p>
+            <p class="text-xs text-gray-400 mt-1">MP4, MOV up to 500MB</p>
+          </div>
+
+          <div id="file-info" class="hidden-view">
+            <div class="flex items-center gap-3 p-3 rounded-xl bg-gray-50 border border-gray-100">
+              <div class="w-16 h-10 bg-black rounded-lg flex items-center justify-center relative overflow-hidden">
+                <video id="video-preview" class="absolute inset-0 w-full h-full object-cover"></video>
+                <span id="video-duration" class="relative z-10 text-white text-[10px] font-mono bg-black/60 px-1 rounded">0:00</span>
+              </div>
+              <div class="flex-1 min-w-0">
+                <p id="file-name" class="text-sm font-medium truncate">video.mp4</p>
+                <p id="file-date" class="text-xs text-gray-400">Aug 24, 2026</p>
+              </div>
+              <button onclick="removeVideo()" class="text-sm text-gray-500 hover:text-red-500 transition flex items-center gap-1">
+                <i data-lucide="x" class="w-3 h-3"></i> Remove
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Details -->
+        <div class="px-4 py-3">
+          <button onclick="toggleDetails()" class="flex items-center gap-2 text-sm text-blue-500 font-medium mb-3 hover:text-blue-600 transition">
+            <i data-lucide="chevron-down" id="details-arrow" class="w-4 h-4 rotate-180 transition-transform"></i>
+            Details
+          </button>
+          <div id="details-panel" class="space-y-4">
+            <div>
+              <div class="flex justify-between mb-1">
+                <label class="text-sm font-medium text-gray-700">Headline</label>
+                <span id="headline-count" class="text-xs text-gray-400">45</span>
+              </div>
+              <input id="headline" type="text" value="" maxlength="45" oninput="updateHeadlineCount()" class="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-100 transition">
+            </div>
+            <div>
+              <label class="text-sm font-medium text-gray-700 mb-1 block">Website URL</label>
+              <input id="website-url" type="url" value="" placeholder="https://yourwebsite.com" class="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-100 transition">
+            </div>
+          </div>
+        </div>
+
+        <!-- Action Bar -->
+        <div class="p-4 border-t border-gray-100 flex justify-end gap-3">
+          <button onclick="previewPost()" class="px-5 py-2.5 rounded-xl border border-gray-200 text-sm font-medium hover:bg-gray-50 transition">Preview</button>
+          <button id="generate-btn" onclick="generateLink()" class="px-6 py-2.5 rounded-xl bg-black text-white text-sm font-medium hover:bg-gray-800 transition flex items-center gap-2">
+            <span id="generate-text">Generate Link</span>
+            <i data-lucide="link" class="w-4 h-4" id="generate-icon"></i>
+          </button>
+        </div>
+      </div>
+    </main>
+  </section>
+
+  <!-- ========== LINK GENERATED VIEW ========== -->
+  <section id="view-link" class="hidden-view min-h-screen bg-gray-100">
+    <header class="glass sticky top-0 z-50 border-b border-gray-200/60">
+      <div class="max-w-2xl mx-auto px-4 h-16 flex items-center justify-between">
+        <button onclick="showView('view-index')" class="font-script text-2xl text-purple-900 hover:opacity-80 transition">Bunnyhub</button>
+        <button onclick="backToApp()" class="text-sm font-medium text-gray-600 hover:text-black transition">← Back</button>
+      </div>
+    </header>
+    <main class="max-w-2xl mx-auto px-4 py-8">
+      <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 text-center slide-up">
+        <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+          <i data-lucide="check-circle" class="w-8 h-8 text-green-600"></i>
+        </div>
+        <h2 class="text-2xl font-bold mb-2">Your link is ready!</h2>
+        <p class="text-gray-500 text-sm mb-6">Paste this on Twitter/X to see the beautiful video card</p>
+
+        <div class="bg-gray-50 rounded-xl p-4 mb-6 flex items-center gap-3 border border-gray-100">
+          <code id="short-link" class="flex-1 text-sm font-mono text-purple-700 truncate">https://bunnyhub.cc/v/x7k9m2</code>
+          <button onclick="copyLink()" class="px-4 py-2 bg-black text-white text-sm rounded-lg hover:bg-gray-800 transition flex items-center gap-2">
+            <i data-lucide="copy" class="w-4 h-4"></i>
+            <span id="copy-text">Copy</span>
+          </button>
+        </div>
+
+        <!-- Twitter Preview -->
+        <div class="text-left">
+          <p class="text-sm font-semibold text-gray-700 mb-3">Twitter/X Preview</p>
+          <div class="bg-black rounded-2xl overflow-hidden border border-gray-800 max-w-sm mx-auto">
+            <div class="p-3 pb-1">
+              <p id="preview-thread-text" class="text-white text-sm">A Thread 🧵👇</p>
+            </div>
+            <div class="relative aspect-[9/16] bg-gray-900 m-3 rounded-xl overflow-hidden">
+              <video id="preview-video" class="w-full h-full object-cover" loop muted playsinline></video>
+              <div class="absolute inset-0 flex items-center justify-center">
+                <div class="w-14 h-14 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center">
+                  <i data-lucide="play" class="w-6 h-6 text-white fill-white ml-1"></i>
+                </div>
+              </div>
+              <div class="absolute bottom-3 left-3 flex items-center gap-3">
+                <span id="preview-duration" class="text-white text-xs font-mono">0:36</span>
+                <span id="preview-caption" class="text-white text-xs">zzzz</span>
+              </div>
+            </div>
+            <div class="px-3 pb-3">
+              <p id="preview-domain" class="text-gray-500 text-xs">from bunnyhub.cc</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-6 p-4 bg-blue-50 rounded-xl border border-blue-100 text-left">
+          <p class="text-sm font-semibold text-blue-900 mb-1">💡 Pro tip</p>
+          <p class="text-xs text-blue-700">When you paste this link on Twitter, it will render as a playable video card. The Twitter crawler reads the <code>twitter:player</code> meta tags from your short link page.</p>
+        </div>
+      </div>
+    </main>
+  </section>
+
+  <!-- Preview Modal -->
+  <div id="preview-modal" class="hidden-view fixed inset-0 z-[100] bg-black/60 backdrop-blur-sm flex items-center justify-center p-4" onclick="closePreview(event)">
+    <div class="bg-white rounded-2xl max-w-md w-full p-6 slide-up" onclick="event.stopPropagation()">
+      <div class="flex justify-between items-center mb-4">
+        <h3 class="font-semibold">Twitter Preview</h3>
+        <button onclick="closePreview()" class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center hover:bg-gray-200 transition">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+      <div class="bg-black rounded-xl overflow-hidden">
+        <div class="p-3">
+          <p id="modal-thread-text" class="text-white text-sm">A Thread 🧵👇</p>
+        </div>
+        <div class="relative aspect-video bg-gray-900 mx-3 mb-3 rounded-lg overflow-hidden">
+          <video id="modal-video" class="w-full h-full object-cover"></video>
+          <div class="absolute inset-0 flex items-center justify-center">
+            <div class="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center cursor-pointer hover:scale-110 transition">
+              <i data-lucide="play" class="w-7 h-7 text-white fill-white ml-1"></i>
+            </div>
+          </div>
+          <div class="absolute bottom-3 left-3 flex items-center gap-3">
+            <span id="modal-duration" class="text-white text-sm font-mono bg-black/50 px-2 py-0.5 rounded">0:36</span>
+          </div>
+        </div>
+        <div class="px-3 pb-3">
+          <p id="modal-domain" class="text-gray-500 text-xs">from bunnyhub.cc</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ─── Appwrite Client SDK Setup ───
+    const { Client, Account, Databases, ID } = Appwrite;
+
+    // Configure these with your actual Appwrite credentials
+    const APPWRITE_ENDPOINT = window.APPWRITE_ENDPOINT || 'https://cloud.appwrite.io/v1';
+    const APPWRITE_PROJECT_ID = window.APPWRITE_PROJECT_ID || 'YOUR_PROJECT_ID';
+    const APPWRITE_DATABASE_ID = window.APPWRITE_DATABASE_ID || 'YOUR_DATABASE_ID';
+    const APPWRITE_COLLECTION_ID = window.APPWRITE_COLLECTION_ID || 'YOUR_COLLECTION_ID';
+
+    const client = new Client()
+      .setEndpoint(APPWRITE_ENDPOINT)
+      .setProject(APPWRITE_PROJECT_ID);
+
+    const account = new Account(client);
+    const databases = new Databases(client);
+
+    let currentUser = null;
+    let uploadedVideo = null;
+    let uploadedVideoBase64 = null;
+    let detailsOpen = true;
+    let isGenerating = false;
+
+    document.addEventListener('DOMContentLoaded', () => {
+      lucide.createIcons();
+      checkSession();
+    });
+
+    // ─── Check existing session ───
+    async function checkSession() {
+      try {
+        const user = await account.get();
+        currentUser = user;
+        document.getElementById('user-name').textContent = user.name || 'User';
+      } catch (e) {
+        currentUser = null;
+      }
+    }
+
+    // ─── Secure Authentication with Appwrite ───
+    async function signIn() {
+      const email = document.getElementById('auth-email').value.trim();
+      const password = document.getElementById('auth-password').value;
+
+      if (!email || !password) {
+        alert('Please enter both email and password');
+        return;
+      }
+
+      try {
+        // Create email/password session
+        await account.createEmailPasswordSession(email, password);
+        const user = await account.get();
+        currentUser = user;
+        showView('view-app');
+      } catch (error) {
+        // If user doesn't exist, create account then sign in
+        if (error.code === 401) {
+          try {
+            await account.create(ID.unique(), email, password, 'Olivia');
+            await account.createEmailPasswordSession(email, password);
+            const user = await account.get();
+            currentUser = user;
+            showView('view-app');
+          } catch (createError) {
+            alert('Authentication failed: ' + (createError.message || 'Unknown error'));
+          }
+        } else {
+          alert('Sign in failed: ' + (error.message || 'Unknown error'));
+        }
+      }
+    }
+
+    async function logout() {
+      try {
+        await account.deleteSession('current');
+        currentUser = null;
+        showView('view-index');
+      } catch (e) {
+        currentUser = null;
+        showView('view-index');
+      }
+    }
+
+    function showView(id) {
+      ['view-index','view-auth','view-app','view-link'].forEach(v => document.getElementById(v).classList.add('hidden-view'));
+      document.getElementById(id).classList.remove('hidden-view');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      lucide.createIcons();
+    }
+
+    function backToApp() { showView('view-app'); }
+
+    function selectDestination(type) {
+      document.querySelectorAll('.dest-btn').forEach(btn => {
+        btn.classList.remove('border-2','border-black','bg-gray-50');
+        btn.classList.add('border','border-gray-200');
+        const check = btn.querySelector('.rounded-full'); if(check) check.remove();
+      });
+      const active = document.getElementById('dest-'+type);
+      active.classList.remove('border','border-gray-200');
+      active.classList.add('border-2','border-black','bg-gray-50');
+      active.innerHTML += `<div class="absolute top-3 right-3 w-5 h-5 bg-black rounded-full flex items-center justify-center"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>`;
+    }
+
+    function selectMediaType(type) {
+      document.querySelectorAll('.media-btn').forEach(btn => {
+        btn.classList.remove('border-2','border-black','bg-gray-50');
+        btn.classList.add('border','border-gray-200');
+        const check = btn.querySelector('.rounded-full'); if(check) check.remove();
+      });
+      const active = document.getElementById('media-'+type);
+      active.classList.remove('border','border-gray-200');
+      active.classList.add('border-2','border-black','bg-gray-50');
+      active.innerHTML += `<div class="absolute top-3 right-3 w-5 h-5 bg-black rounded-full flex items-center justify-center"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>`;
+    }
+
+    function toggleDetails() {
+      detailsOpen = !detailsOpen;
+      const panel = document.getElementById('details-panel');
+      const arrow = document.getElementById('details-arrow');
+      if(detailsOpen) { panel.classList.remove('hidden-view'); arrow.classList.add('rotate-180'); }
+      else { panel.classList.add('hidden-view'); arrow.classList.remove('rotate-180'); }
+    }
+
+    function handleVideoUpload(e) {
+      const file = e.target.files[0]; if(!file) return;
+
+      // Validate file type and size
+      if (!file.type.startsWith('video/')) {
+        alert('Please upload a valid video file');
+        return;
+      }
+      if (file.size > 512 * 1024 * 1024) {
+        alert('Video must be under 512MB');
+        return;
+      }
+
+      uploadedVideo = file;
+
+      // Convert to base64 for upload
+      const reader = new FileReader();
+      reader.onload = function(evt) {
+        uploadedVideoBase64 = evt.target.result;
+      };
+      reader.readAsDataURL(file);
+
+      const url = URL.createObjectURL(file);
+      const video = document.getElementById('video-preview');
+      video.src = url;
+      video.onloadedmetadata = () => {
+        const mins = Math.floor(video.duration/60);
+        const secs = Math.floor(video.duration%60);
+        document.getElementById('video-duration').textContent = `${mins}:${secs.toString().padStart(2,'0')}`;
+      };
+      document.getElementById('file-name').textContent = file.name;
+      document.getElementById('file-date').textContent = new Date().toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
+      document.getElementById('upload-area').classList.add('hidden-view');
+      document.getElementById('file-info').classList.remove('hidden-view');
+      lucide.createIcons();
+    }
+
+    function handlePaste(e) {
+      setTimeout(() => updatePreviewText(), 10);
+    }
+
+    function removeVideo() {
+      uploadedVideo = null;
+      uploadedVideoBase64 = null;
+      document.getElementById('video-input').value = '';
+      document.getElementById('video-preview').src = '';
+      document.getElementById('upload-area').classList.remove('hidden-view');
+      document.getElementById('file-info').classList.add('hidden-view');
+    }
+
+    function updateHeadlineCount() {
+      const val = document.getElementById('headline').value;
+      document.getElementById('headline-count').textContent = 45 - val.length;
+    }
+
+    // ─── Generate Link: Upload to Cloudinary + Save to Appwrite ───
+    async function generateLink() {
+      if(!uploadedVideo || !uploadedVideoBase64) {
+        alert('Please upload a video first!');
+        return;
+      }
+
+      const websiteUrl = document.getElementById('website-url').value.trim();
+      if (!websiteUrl) {
+        alert('Please enter a website URL');
+        return;
+      }
+
+      if (isGenerating) return;
+      isGenerating = true;
+
+      // Show loading state
+      const btn = document.getElementById('generate-btn');
+      const btnText = document.getElementById('generate-text');
+      const btnIcon = document.getElementById('generate-icon');
+      btnText.textContent = 'Generating...';
+      btnIcon.outerHTML = '<div class="spinner" id="generate-spinner"></div>';
+      btn.disabled = true;
+      btn.classList.add('opacity-70');
+
+      try {
+        // Upload via serverless API
+        const response = await fetch('/api/upload', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            videoBase64: uploadedVideoBase64,
+            headline: document.getElementById('headline').value.trim(),
+            description: document.getElementById('post-text').value.trim(),
+            websiteUrl: websiteUrl,
+            postText: document.getElementById('post-text').value.trim(),
+            userId: currentUser ? currentUser.$id : 'anonymous',
+            destination: 'website',
+            mediaType: 'single',
+            creativeType: document.getElementById('creative-type').value
+          })
+        });
+
+        const result = await response.json();
+
+        if (!result.success) {
+          throw new Error(result.error || 'Upload failed');
+        }
+
+        // Update UI with generated link
+        document.getElementById('short-link').textContent = result.shortLink;
+
+        const videoUrl = URL.createObjectURL(uploadedVideo);
+        const pv = document.getElementById('preview-video');
+        pv.src = videoUrl;
+        pv.onloadedmetadata = () => {
+          const mins = Math.floor(pv.duration/60);
+          const secs = Math.floor(pv.duration%60);
+          document.getElementById('preview-duration').textContent = `${mins}:${secs.toString().padStart(2,'0')}`;
+        };
+
+        document.getElementById('preview-thread-text').textContent = document.getElementById('post-text').value;
+        document.getElementById('preview-caption').textContent = document.getElementById('headline').value || 'zzzz';
+
+        // Dynamic domain in preview
+        const domain = new URL(result.shortLink).hostname;
+        document.getElementById('preview-domain').textContent = `from ${domain}`;
+
+        showView('view-link');
+
+      } catch (error) {
+        console.error('Generate link error:', error);
+        alert('Failed to generate link: ' + error.message);
+      } finally {
+        isGenerating = false;
+        btnText.textContent = 'Generate Link';
+        document.getElementById('generate-spinner').outerHTML = '<i data-lucide="link" class="w-4 h-4" id="generate-icon"></i>';
+        btn.disabled = false;
+        btn.classList.remove('opacity-70');
+        lucide.createIcons();
+      }
+    }
+
+    function copyLink() {
+      const link = document.getElementById('short-link').textContent;
+      navigator.clipboard.writeText(link).then(() => {
+        const btn = document.getElementById('copy-text');
+        btn.textContent = 'Copied!';
+        setTimeout(() => btn.textContent = 'Copy', 2000);
+      });
+    }
+
+    function updatePreviewText() {
+      const text = document.getElementById('post-text').value;
+      const previewThread = document.getElementById('preview-thread-text');
+      const modalThread = document.getElementById('modal-thread-text');
+      if (previewThread) previewThread.textContent = text;
+      if (modalThread) modalThread.textContent = text;
+    }
+
+    function previewPost() {
+      if(!uploadedVideo) { alert('Upload a video to see preview'); return; }
+      const videoUrl = URL.createObjectURL(uploadedVideo);
+      const mv = document.getElementById('modal-video');
+      mv.src = videoUrl;
+      mv.onloadedmetadata = () => {
+        const mins = Math.floor(mv.duration/60);
+        const secs = Math.floor(mv.duration%60);
+        document.getElementById('modal-duration').textContent = `${mins}:${secs.toString().padStart(2,'0')}`;
+      };
+      document.getElementById('modal-thread-text').textContent = document.getElementById('post-text').value;
+
+      // Dynamic domain
+      const hostname = window.location.hostname;
+      document.getElementById('modal-domain').textContent = `from ${hostname}`;
+
+      document.getElementById('preview-modal').classList.remove('hidden-view');
+    }
+
+    function closePreview(e) {
+      if(!e || e.target === document.getElementById('preview-modal')) {
+        document.getElementById('preview-modal').classList.add('hidden-view');
+      }
+    }
+  </script>
+</body>
+</html>
