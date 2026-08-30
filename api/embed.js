@@ -6,37 +6,22 @@ const client = new Client()
   .setKey(process.env.APPWRITE_API_KEY);
 
 const databases = new Databases(client);
-
 const DATABASE_ID = process.env.APPWRITE_DATABASE_ID;
 const COLLECTION_ID = process.env.APPWRITE_COLLECTION_ID;
 
 module.exports = async (req, res) => {
-  // Extract shortId from URL path or query
   let shortId = req.query.shortId;
   if (!shortId && req.url) {
     const match = req.url.match(/\/embed\/([a-zA-Z0-9_-]+)/);
     if (match) shortId = match[1];
   }
 
-  if (!shortId) {
-    console.error('Embed: Missing shortId. URL:', req.url);
-    return res.status(400).send('Missing short ID');
-  }
-
-  if (!DATABASE_ID || !COLLECTION_ID) {
-    console.error('Embed: Missing env vars');
-    return res.status(500).send('Server configuration error');
-  }
+  if (!shortId) return res.status(400).send('Missing ID');
+  if (!DATABASE_ID || !COLLECTION_ID) return res.status(500).send('Config error');
 
   try {
-    const result = await databases.listDocuments(DATABASE_ID, COLLECTION_ID, [
-      Query.equal('shortId', shortId)
-    ]);
-
-    if (result.total === 0) {
-      console.error('Embed: Link not found:', shortId);
-      return res.status(404).send('Link not found');
-    }
+    const result = await databases.listDocuments(DATABASE_ID, COLLECTION_ID, [Query.equal('shortId', shortId)]);
+    if (result.total === 0) return res.status(404).send('Not found');
 
     const doc = result.documents[0];
     const { headline, videoUrl, thumbnailUrl, websiteUrl } = doc;
@@ -45,25 +30,14 @@ module.exports = async (req, res) => {
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>${escapeHtml(headline || 'Bunnyhub Video')}</title>
+  <title>${escapeHtml(headline || 'Video')}</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { background: #000; display: flex; align-items: center; justify-content: center; min-height: 100vh; }
+    body { background: #000; display: flex; align-items: center; justify-content: center; min-height: 100vh; font-family: -apple-system, sans-serif; }
     .video-container { width: 100%; max-width: 480px; position: relative; }
     video { width: 100%; height: auto; display: block; border-radius: 12px; }
-    .click-overlay {
-      position: absolute; bottom: 0; left: 0; right: 0; height: 60%;
-      cursor: pointer; z-index: 10;
-    }
-    .cta-banner {
-      position: absolute; bottom: 12px; left: 12px; right: 12px;
-      background: rgba(0,0,0,0.7); backdrop-filter: blur(8px);
-      color: #fff; padding: 10px 14px; border-radius: 8px;
-      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-      font-size: 13px; display: flex; align-items: center; justify-content: space-between;
-      z-index: 5; pointer-events: none;
-    }
+    .click-overlay { position: absolute; bottom: 0; left: 0; right: 0; height: 55%; cursor: pointer; z-index: 10; }
+    .cta-banner { position: absolute; bottom: 12px; left: 12px; right: 12px; background: rgba(0,0,0,0.7); backdrop-filter: blur(8px); color: #fff; padding: 10px 14px; border-radius: 8px; font-size: 13px; display: flex; align-items: center; justify-content: space-between; z-index: 5; pointer-events: none; }
   </style>
 </head>
 <body>
@@ -78,8 +52,7 @@ module.exports = async (req, res) => {
     </div>
   </div>
   <script>
-    const vid = document.getElementById('player');
-    vid.play().catch(() => {});
+    document.getElementById('player').play().catch(function(){});
   </script>
 </body>
 </html>`;
@@ -90,17 +63,12 @@ module.exports = async (req, res) => {
     res.status(200).send(html);
 
   } catch (error) {
-    console.error('Embed handler error:', error.message, error.stack);
-    res.status(500).send('Internal Server Error');
+    console.error('Embed error:', error);
+    res.status(500).send('Error');
   }
 };
 
 function escapeHtml(text) {
   if (!text) return '';
-  return text
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#039;');
+  return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
 }
