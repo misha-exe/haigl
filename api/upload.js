@@ -71,7 +71,8 @@ module.exports = async (req, res) => {
             crop: 'fill',
             gravity: 'auto',
             format: 'jpg',
-            quality: 'auto:good'
+            quality: 'auto:good',
+            secure: true
           }
         ],
         eager_async: false
